@@ -4,13 +4,15 @@ import { useState, useEffect } from "react"
 
 export default function Video(){
     const [progress, setProgress] = useState(0)
-    const [video, setVideo] = useState(null)
+    //@ts-ignore
+    const [video, setVideo] = useState<HTMLVideoElement>(null)
     const [paused, setPaused] = useState(false)
 
     let prog = 0
 
     useEffect(() => {
         const videoElement = document.getElementById('videoElement');
+        //@ts-ignore
         setVideo(videoElement);
         const playimgs = setInterval( () => {
             if(paused){return}
@@ -56,10 +58,12 @@ export default function Video(){
                 <div style={{width:'50%'}}>
                     {(imgArray.map((img, index) => {
                         return(
-                            <img style={{width: '50%', 
-                            visibility:`${Math.round(progress/10) == index ? 'visible' : 'hidden'}`,
-                            position: 'absolute',
-                        }} src={`/VideoTest/img sequence/webp/bcnr00${34+index*3}.webp`}></img>
+                            <div key={index}>
+                                <img style={{width: '50%', 
+                                visibility:`${Math.round(progress/10) == index ? 'visible' : 'hidden'}`,
+                                position: 'absolute',
+                            }} src={`/VideoTest/img sequence/webp/bcnr00${34+index*3}.webp`}></img>
+                            </div>
                         )}
                     ))}
                 </div>

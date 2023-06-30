@@ -62,7 +62,7 @@ export default function Video(){
                                 <img style={{width: '50%', 
                                 visibility:`${Math.round(progress/10) == index ? 'visible' : 'hidden'}`,
                                 position: 'absolute',
-                            }} src={`/VideoTest/img sequence/webp/bcnr00${34+index*3}.webp`}></img>
+                            }} src={`/VideoTest/img sequence/webp/bcnr00${34+index*2}.webp`}></img>
                             </div>
                         )}
                     ))}

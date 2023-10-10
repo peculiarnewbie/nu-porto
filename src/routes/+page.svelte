@@ -2,9 +2,6 @@
 	import "../app.css";
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-
 <div class=" flex flex-col p-12">
-	<h1 class="text-9xl">come on</h1>
+	<h1 class="text-9xl">Have Fun 😁</h1>
 </div>

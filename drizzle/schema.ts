@@ -23,7 +23,8 @@ export const tagsRelations = relations(tags, ({ many }) => ({
 export const blogs = sqliteTable('blogs', {
 	id: text('id').notNull().primaryKey(),
 	title: text('title').notNull(),
-	description: text('descrioption'),
+	description: text('description'),
+	content: text('content'),
 	image: text('image'),
 	createdAt: integer("created_at").default(sql`(cast (unixepoch () as int))`),
     updatedAt: integer("updated_at").default(sql`(cast (unixepoch () as int))`),

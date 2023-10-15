@@ -1,1 +1,20 @@
-{"version":"5","dialect":"sqlite","entries":[]}
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1697363106444,
+      "tag": "0000_dazzling_captain_britain",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1697363270632,
+      "tag": "0001_bizarre_cannonball",
+      "breakpoints": true
+    }
+  ]
+}

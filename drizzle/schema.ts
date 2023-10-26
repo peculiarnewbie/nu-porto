@@ -9,48 +9,76 @@ import {
 	uniqueIndex
 } from "drizzle-orm/sqlite-core";
 
-export const tags = sqliteTable('tags', {
-	id: text('id').notNull().primaryKey(),
-	name: text('name')
-}, (tags) => ({
-	nameIdx: index("tagName_idx").on(tags.name)
-}));
+export const tags = sqliteTable(
+	"tags",
+	{
+		id: text("id").notNull().primaryKey(),
+		name: text("name")
+	},
+	(tags) => ({
+		nameIdx: index("tagName_idx").on(tags.name)
+	})
+);
 
 export const tagsRelations = relations(tags, ({ many }) => ({
-	tagsToBlogs:many(tagsToBlogs)
-}))
+	tagsToBlogs: many(tagsToBlogs)
+}));
 
-export const blogs = sqliteTable('blogs', {
-	id: text('id').notNull().primaryKey(),
-	title: text('title').notNull(),
-	description: text('description'),
-	content: text('content'),
-	image: text('image'),
-	createdAt: integer("created_at").default(sql`(cast (unixepoch () as int))`),
-    updatedAt: integer("updated_at").default(sql`(cast (unixepoch () as int))`),
-}, (blogs) => ({
-	idIdx: uniqueIndex('blogId_idx').on(blogs.id),
-}))
+export const blogs = sqliteTable(
+	"blogs",
+	{
+		id: text("id").notNull().primaryKey(),
+		title: text("title").notNull(),
+		description: text("description"),
+		content: text("content"),
+		image: text("image"),
+		createdAt: integer("created_at").default(sql`(cast (unixepoch () as int))`),
+		updatedAt: integer("updated_at").default(sql`(cast (unixepoch () as int))`)
+	},
+	(blogs) => ({
+		idIdx: uniqueIndex("blogId_idx").on(blogs.id)
+	})
+);
 
 export const blogsRelations = relations(blogs, ({ many }) => ({
-	tagsToBlogs:many(tagsToBlogs)
-}))
+	tagsToBlogs: many(tagsToBlogs)
+}));
 
-export const tagsToBlogs = sqliteTable('tags_to_blogs', {
-		tagId: integer('tag_id').notNull().references(() => tags.id),
-		blogId: integer('blog_id').notNull().references(() => blogs.id),
-	}, (t) => ({
-		pk: primaryKey(t.tagId, t.blogId),
-	}),
+export const tagsToBlogs = sqliteTable(
+	"tags_to_blogs",
+	{
+		tagId: integer("tag_id")
+			.notNull()
+			.references(() => tags.id),
+		blogId: integer("blog_id")
+			.notNull()
+			.references(() => blogs.id)
+	},
+	(t) => ({
+		pk: primaryKey(t.tagId, t.blogId)
+	})
 );
 
 export const tagsToBlogsRelations = relations(tagsToBlogs, ({ one }) => ({
 	blog: one(blogs, {
 		fields: [tagsToBlogs.blogId],
-		references: [blogs.id],
+		references: [blogs.id]
 	}),
 	tag: one(tags, {
 		fields: [tagsToBlogs.tagId],
-		references: [tags.id],
-	}),
+		references: [tags.id]
+	})
 }));
+
+export const projects = sqliteTable("projects", {
+	id: text("id").notNull().primaryKey(),
+	title: text("title").notNull(),
+	repoUrl: text("repoUrl"),
+	previewUrl: text("previewUrl"),
+	priority: integer("priority"),
+	description: text("description"),
+	content: text("content"),
+	images: text("images"),
+	createdAt: integer("created_at").default(sql`(cast (unixepoch () as int))`),
+	updatedAt: integer("updated_at").default(sql`(cast (unixepoch () as int))`)
+});

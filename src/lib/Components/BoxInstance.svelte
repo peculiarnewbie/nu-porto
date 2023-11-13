@@ -13,7 +13,7 @@
         const dx = x - position[0]
         const dz = z - position[1]
 
-        y = Math.sqrt(dx*dx + dz*dz)/30
+        y = Math.sqrt(dx*dx + dz*dz)/10
     })
 
     onDestroy(unsubscribe)
@@ -22,7 +22,9 @@
 
 <Instance 
     position.x={position[0] - 10}
-    position.y={y*5 - 1}
+    position.y={5 - y*5}
     position.z={position[1] - 10}
 
+    scale.x=1
+    scale.z=1
 />

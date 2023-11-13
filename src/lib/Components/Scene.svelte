@@ -1,7 +1,7 @@
 <script lang='ts'>
 	import { T } from "@threlte/core";
 	import { interactivity, InstancedMesh } from "@threlte/extras";
-	import { onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
 	import { spring } from "svelte/motion";
 	import { AmbientLight, BoxGeometry, DirectionalLight, MeshPhysicalMaterial, OrthographicCamera, PerspectiveCamera, PointLight } from "three";
 	import BoxInstance from "./BoxInstance.svelte";
@@ -28,6 +28,8 @@
 
 	const positions: [number, number][] = []
 
+	let lightPos = [0,0]
+
 	for(let i=0; i < count; i++){
 		for(let j=0; j < count; j++){
 			positions[i * count + j] = [i, j]
@@ -38,7 +40,11 @@
 		document.body.addEventListener("mousemove", followMouse);
 	})
 
-	
+	const unsubscribe = mousePosition.subscribe((value) => {
+		lightPos = [30 * value[0] /window.innerWidth, 30* value[1] / window.innerHeight]
+	})
+
+	onDestroy(unsubscribe)	
 </script>
 
 <T.OrthographicCamera
@@ -47,10 +53,10 @@
 	on:create={({ ref }) => {
 		ref.lookAt(0, 0, 0);
 	}}
-	zoom=100
+	zoom=50
 ></T.OrthographicCamera>
 
-<InstancedMesh>
+<InstancedMesh castShadow>
 	<T.BoxGeometry />
 	<T.MeshStandardMaterial color="black" />
 
@@ -59,8 +65,8 @@
 	{/each}
 </InstancedMesh>
 
-<T.PointLight position={[15, 10, 15]} intensity=1500 castShadow decay=1.4 />
-<T.PointLight position={[-15, 10, -15]} intensity=500 castShadow decay=1.4 />
+<T.PointLight position={[lightPos[0], 20, lightPos[1]]} intensity=200 castShadow decay=1.4 />
+<T.PointLight position={[-15, 10, -15]} intensity=50 castShadow decay=1.4 />
 
 <T.Mesh rotation.x={-Math.PI/2} receiveShadow
 	position={[0,0.5,0]}

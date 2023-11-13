@@ -17,14 +17,14 @@
 	let camerax = spring(10);
 	let cameray = spring(10);
 
-	let cameraPosition = spring([50, 25, 50]);
+	let cameraPosition = spring([0, 25, 30]);
 
 	const followMouse = (e:MouseEvent) => {
 		mousePosition.set([e.pageX, e.pageY])
 		// console.log(pos);
 	}
 
-	const count = 30
+	const count = 50
 
 	const positions: [number, number][] = []
 
@@ -32,7 +32,12 @@
 
 	for(let i=0; i < count; i++){
 		for(let j=0; j < count; j++){
-			positions[i * count + j] = [i, j]
+			if(i%2 == 0){
+				positions[i * count + j] = [i, j+0.5]
+			}
+			else {
+				positions[i * count + j] = [i, j]
+			}
 		}
 	}
 
@@ -41,7 +46,7 @@
 	})
 
 	const unsubscribe = mousePosition.subscribe((value) => {
-		lightPos = [30 * value[0] /window.innerWidth, 30* value[1] / window.innerHeight]
+		lightPos = [50 * value[0] /window.innerWidth, 50* value[1] / window.innerHeight]
 	})
 
 	onDestroy(unsubscribe)	
@@ -53,10 +58,10 @@
 	on:create={({ ref }) => {
 		ref.lookAt(0, 0, 0);
 	}}
-	zoom=50
+	zoom=55
 ></T.OrthographicCamera>
 
-<InstancedMesh castShadow>
+<InstancedMesh limit={5000} range={2500} castShadow>
 	<T.BoxGeometry />
 	<T.MeshStandardMaterial color="black" />
 
@@ -65,11 +70,10 @@
 	{/each}
 </InstancedMesh>
 
-<T.PointLight position={[lightPos[0], 20, lightPos[1]]} intensity=200 castShadow decay=1.4 />
-<T.PointLight position={[-15, 10, -15]} intensity=50 castShadow decay=1.4 />
+<T.PointLight position={[lightPos[0]-25, 25, lightPos[1]-25]} intensity=300 castShadow decay=1.5 />
 
 <T.Mesh rotation.x={-Math.PI/2} receiveShadow
-	position={[0,0.5,0]}
+	position={[0,3.5,0]}
 >
   <T.PlaneGeometry args={[400, 400]}/>
   <T.MeshStandardMaterial color="black" />

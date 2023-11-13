@@ -7,10 +7,13 @@
     let y = 0;
 
     const unsubscribe = mousePosition.subscribe((value) => {
-        const x = 20 * value[0] / window.innerWidth;
-        const z = 20 * value[1] / window.innerHeight;
+        const x = 30 * value[0] / window.innerWidth;
+        const z = 30 * value[1] / window.innerHeight;
 
-        y = x - position[0] + z - position[1]
+        const dx = x - position[0]
+        const dz = z - position[1]
+
+        y = Math.sqrt(dx*dx + dz*dz)/30
     })
 
     onDestroy(unsubscribe)
@@ -18,10 +21,8 @@
 </script>
 
 <Instance 
-    position.x={10 - position[0]}
-    position.y={y}
-    position.z={10 - position[1]}
+    position.x={position[0] - 10}
+    position.y={y*5 - 1}
+    position.z={position[1] - 10}
 
-    scale.x = 0.5
-    scale.z = 0.5
 />

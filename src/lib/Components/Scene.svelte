@@ -17,14 +17,14 @@
 	let camerax = spring(10);
 	let cameray = spring(10);
 
-	let cameraPosition = spring([50, 50, 50]);
+	let cameraPosition = spring([50, 25, 50]);
 
 	const followMouse = (e:MouseEvent) => {
 		mousePosition.set([e.pageX, e.pageY])
 		// console.log(pos);
 	}
 
-	const count = 20
+	const count = 30
 
 	const positions: [number, number][] = []
 
@@ -59,10 +59,11 @@
 	{/each}
 </InstancedMesh>
 
-<T.PointLight position={[0, 4, 0]} intensity=50 castShadow decay=1.4 />
+<T.PointLight position={[15, 10, 15]} intensity=1500 castShadow decay=1.4 />
+<T.PointLight position={[-15, 10, -15]} intensity=500 castShadow decay=1.4 />
 
 <T.Mesh rotation.x={-Math.PI/2} receiveShadow
-	position={[0,-10.5,0]}
+	position={[0,0.5,0]}
 >
   <T.PlaneGeometry args={[400, 400]}/>
   <T.MeshStandardMaterial color="black" />

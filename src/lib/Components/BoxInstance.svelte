@@ -11,6 +11,10 @@
         scale = $sceneSize
     })
 
+    const unsubscribe2 = sceneSize.subscribe((value) => {
+        scale = value;
+    })
+
     const unsubscribe = mousePosition.subscribe((value) => {
 
         const dx = value[0] - position[0]

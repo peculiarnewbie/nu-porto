@@ -10,11 +10,9 @@
 	interactivity();
 	
 	let cameraPosition = spring([0, 100, 100]);
-	const positions: [number, number][] = []
+	let positions: [number, number][] = []
 	let lightPos = spring([0,0])
 	let count = [40, 56]
-
-	let mouseMoveTimeout:NodeJS.Timeout
 
 	function debounce(callback:any, wait:number) {
 		var timeout:NodeJS.Timeout;
@@ -34,6 +32,7 @@
 	}
 
 	const rebuildBG = () => {
+		positions = []
 		const normal = 1000
 		let sizeRef = 1000
 		
@@ -48,7 +47,6 @@
 			count = [Math.ceil(40 * ratio) + 1, 56]
 			
 		} 
-		console.log(sizeRef)
 		const ratio = sizeRef/normal
 		sceneSize.set(ratio)
 		
@@ -62,16 +60,32 @@
 				}
 			}
 		}
+		console.log(positions.length)
 		console.log(count)
+	}
+
+	let resizeTimeout: NodeJS.Timeout;
+
+	const handleResize = () => {
+		clearTimeout(resizeTimeout)
+		setTimeout(() => {
+			rebuildBG()
+		}, 500);
 	}
 
 	onMount(() => {
 		rebuildBG()
 
 		document.body.addEventListener("mousemove", followMouse);
+
+		return () => {
+			document.body.removeEventListener("mousemove", followMouse)
+		}
 	})
 	
 </script>
+
+<svelte:window on:resize={handleResize} />
 
 <T.OrthographicCamera
 	makeDefault
@@ -82,7 +96,7 @@
 	zoom=26
 ></T.OrthographicCamera>
 
-<InstancedMesh limit={5000} range={2500} castShadow>
+<InstancedMesh limit={5000} range={positions.length} castShadow>
 	<T.BoxGeometry />
 	<T.MeshStandardMaterial color="black" />
 

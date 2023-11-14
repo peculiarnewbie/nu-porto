@@ -1,17 +1,20 @@
 <script lang="ts">
     import { Instance } from '@threlte/extras'
-    import { mousePosition } from '$lib/stores';
-	import { onDestroy } from 'svelte';
+    import { mousePosition, sceneSize } from '$lib/stores';
+	import { onDestroy, onMount } from 'svelte';
 
     export let position: [number, number]
     let y = 0;
+    let scale:number = 1
+
+    onMount(() => {
+        scale = $sceneSize
+    })
 
     const unsubscribe = mousePosition.subscribe((value) => {
-        const x = 50 * value[0] / window.innerWidth;
-        const z = 50 * value[1] / window.innerHeight;
 
-        const dx = x - position[0]
-        const dz = z - position[1]
+        const dx = value[0] - position[0]
+        const dz = value[1] - position[1]
 
         y = Math.sqrt(dx*dx + dz*dz)/30
     })
@@ -21,13 +24,13 @@
 </script>
 
 <Instance 
-    position.x={position[0] - 25}
-    position.y={6 - Math.pow(y, 1.5)*10}
-    position.z={position[1] - 25}
+    position.x={position[0] * scale}
+    position.y={(3 - Math.pow(y, 1.5)*10)*scale}
+    position.z={position[1] * scale}
 
-    scale.x=1
-    scale.z=1
-    scale.y=3
+    scale.x={scale}
+    scale.z={scale}
+    scale.y={3 * scale}
 
     rotation.y={Math.PI * 45 / 180}
 />

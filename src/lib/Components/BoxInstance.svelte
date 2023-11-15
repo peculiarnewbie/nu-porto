@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Instance } from '@threlte/extras'
-    import { sceneLightPos, sceneSize } from '$lib/stores';
+    import { sceneSize } from '$lib/stores';
 	import { onDestroy, onMount } from 'svelte';
 
     export let position: [number, number]

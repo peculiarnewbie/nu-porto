@@ -5,7 +5,7 @@
 	import { spring } from "svelte/motion";
 	import { AmbientLight, BoxGeometry, DirectionalLight, MeshPhysicalMaterial, OrthographicCamera, PerspectiveCamera, PointLight } from "three";
 	import BoxInstance from "./BoxInstance.svelte";
-	import { mousePos, sceneLightPos, sceneSize } from "$lib/stores";
+	import { mousePos, sceneSize } from "$lib/stores";
 
 	interactivity();
 	
@@ -30,7 +30,6 @@
 	const followMouse = (e:MouseEvent) => {
 			lightPos.set([(count[0] * e.pageX /window.innerWidth - count[0]/2), 
 						(count[1] * e.pageY / window.innerHeight - count[1]/2)])
-			sceneLightPos.set($lightPos)
 			mousePos.set([e.pageX, e.pageY])
 		// console.log(pos);
 	}

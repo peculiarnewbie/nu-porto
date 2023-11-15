@@ -2,20 +2,22 @@
 	import { mousePos } from "$lib/stores";
 	import { onDestroy, onMount } from "svelte";
 
-    let boltOpacity = 1;
+    let boltOpacity = 0.8;
     let boltText:HTMLElement;
 
     const unsubscribe = mousePos.subscribe((value) => {
-        if(window.innerWidth < 560){
-            boltOpacity = 0.8;
-        }
-        else if(boltText){
-            const rect = boltText.getBoundingClientRect()
-            const dx = value[0] - rect.left;
-            const dy = value[1] - rect.top;
-
-            const distance = (600-Math.sqrt(dx * dx + dy * dy))/400
-            boltOpacity = distance;
+        if(typeof window != "undefined"){
+            if(window.innerWidth < 560){
+                boltOpacity = 0.8;
+            }
+            else if(boltText){
+                const rect = boltText.getBoundingClientRect()
+                const dx = value[0] - rect.left;
+                const dy = value[1] - rect.top;
+    
+                const distance = (600-Math.sqrt(dx * dx + dy * dy))/400
+                boltOpacity = distance;
+            }
         }
     })
 

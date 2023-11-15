@@ -3,7 +3,7 @@
 	import { onDestroy, onMount } from "svelte";
 	import HeaderLinks from "./HeaderLinks.svelte";
 
-    let boltOpacity = 0.8;
+    let boltOpacity = 1;
     let boltText:HTMLElement;
 
     const links = [{icon: "github.svg", url:"https://github.com/peculiarnewbie", action:"open"},
@@ -15,7 +15,7 @@
     const unsubscribe = mousePos.subscribe((value) => {
         if(typeof window != "undefined"){
             if(window.innerWidth < 560){
-                boltOpacity = 0.8;
+                boltOpacity = 1;
             }
             else if(boltText){
                 const rect = boltText.getBoundingClientRect()
@@ -45,7 +45,7 @@
         </div>
         <div class="mt-4 max-w-xs leading-normal text-slate-400">Learning to build useful tools and meaningful experiences</div>
     </div>
-    <div class="flex gap-7 bottom-0">
+    <div class="flex gap-7 bottom-0 mt-8">
         {#each links as link}
             <HeaderLinks iconUrl={link.icon} url={link.url} />
         {/each}

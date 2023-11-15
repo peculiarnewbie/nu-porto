@@ -29,7 +29,7 @@
 	
 	const followMouse = (e:MouseEvent) => {
 			lightPos.set([(count[0] * e.pageX /window.innerWidth - count[0]/2), 
-						(count[1] * e.pageY / window.innerHeight - count[1]/2)])
+						(count[1] * e.pageY / window.innerHeight - count[1]/2) + 2])
 			mousePos.set([e.pageX, e.pageY])
 		// console.log(pos);
 	}
@@ -111,7 +111,7 @@
 </InstancedMesh>
 
 <T.PointLight position={[$lightPos[0] * $sceneSize, 20 + 2 * Math.log2($sceneSize * 2), $lightPos[1] * $sceneSize]} 
-	intensity=1300 castShadow decay=1.8 color="#cdceff"
+	intensity=1000 castShadow decay=1.8 color="#cdceff"
 />
 
 <T.Mesh rotation.x={-Math.PI/2} receiveShadow

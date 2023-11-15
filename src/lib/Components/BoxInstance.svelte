@@ -1,9 +1,10 @@
 <script lang="ts">
     import { Instance } from '@threlte/extras'
-    import { mousePosition, sceneSize } from '$lib/stores';
+    import { sceneLightPos, sceneSize } from '$lib/stores';
 	import { onDestroy, onMount } from 'svelte';
 
     export let position: [number, number]
+    export let lightPos: number[]
     let y = 0;
     let scale:number = 1
 
@@ -15,15 +16,14 @@
         scale = value;
     })
 
-    const unsubscribe = mousePosition.subscribe((value) => {
-
-        const dx = value[0] - position[0]
-        const dz = value[1] - position[1]
+    $:{
+        const dx = lightPos[0] - position[0]
+        const dz = lightPos[1] - position[1]
 
         y = Math.sqrt(dx*dx + dz*dz)/30
-    })
+    }
 
-    onDestroy(unsubscribe)
+    onDestroy(unsubscribe2)
 
 </script>
 

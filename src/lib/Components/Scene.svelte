@@ -5,13 +5,16 @@
 	import { spring } from "svelte/motion";
 	import { AmbientLight, BoxGeometry, DirectionalLight, MeshPhysicalMaterial, OrthographicCamera, PerspectiveCamera, PointLight } from "three";
 	import BoxInstance from "./BoxInstance.svelte";
-	import { mousePosition, sceneSize } from "$lib/stores";
+	import { mousePos, sceneLightPos, sceneSize } from "$lib/stores";
 
 	interactivity();
 	
 	let cameraPosition = spring([0, 100, 100]);
 	let positions: [number, number][] = []
-	let lightPos = spring([0,0])
+	let lightPos = spring([0,0], {
+			stiffness: 0.05,
+			damping: 0.5
+		})
 	let count = [40, 56]
 
 	function debounce(callback:any, wait:number) {
@@ -27,7 +30,8 @@
 	const followMouse = (e:MouseEvent) => {
 			lightPos.set([(count[0] * e.pageX /window.innerWidth - count[0]/2), 
 						(count[1] * e.pageY / window.innerHeight - count[1]/2)])
-			mousePosition.set($lightPos)
+			sceneLightPos.set($lightPos)
+			mousePos.set([e.pageX, e.pageY])
 		// console.log(pos);
 	}
 
@@ -60,7 +64,7 @@
 				}
 			}
 		}
-		console.log(positions.length)
+		console.log(positions.length, window.innerWidth)
 		console.log(count)
 	}
 
@@ -68,7 +72,7 @@
 
 	const handleResize = () => {
 		clearTimeout(resizeTimeout)
-		setTimeout(() => {
+		resizeTimeout = setTimeout(() => {
 			rebuildBG()
 		}, 500);
 	}
@@ -102,13 +106,13 @@
 
 	
 	{#each positions as position }
-		<BoxInstance {position} />
+		<BoxInstance {position} lightPos={$lightPos} />
 	{/each}
 	
 </InstancedMesh>
 
-<T.PointLight position={[$lightPos[0] * $sceneSize, 40 + 2 * Math.log2($sceneSize * 2), $lightPos[1] * $sceneSize]} 
-	intensity=2500 castShadow decay=1.8
+<T.PointLight position={[$lightPos[0] * $sceneSize, 20 + 2 * Math.log2($sceneSize * 2), $lightPos[1] * $sceneSize]} 
+	intensity=1300 castShadow decay=1.8 color="#cdceff"
 />
 
 <T.Mesh rotation.x={-Math.PI/2} receiveShadow

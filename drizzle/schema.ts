@@ -13,7 +13,8 @@ export const tags = sqliteTable(
 	"tags",
 	{
 		id: text("id").notNull().primaryKey(),
-		name: text("name")
+		name: text("name"),
+		type: text("type")
 	},
 	(tags) => ({
 		nameIdx: index("tagName_idx").on(tags.name)
@@ -21,7 +22,8 @@ export const tags = sqliteTable(
 );
 
 export const tagsRelations = relations(tags, ({ many }) => ({
-	tagsToBlogs: many(tagsToBlogs)
+	tagsToBlogs: many(tagsToBlogs),
+	tagsToProjects: many(tagsToProjects)
 }));
 
 export const blogs = sqliteTable(
@@ -82,3 +84,33 @@ export const projects = sqliteTable("projects", {
 	createdAt: integer("created_at").default(sql`(cast (unixepoch () as int))`),
 	updatedAt: integer("updated_at").default(sql`(cast (unixepoch () as int))`)
 });
+
+export const projectsRelations = relations(projects, ({ many }) => ({
+	tagsToProjects: many(tagsToProjects)
+}))
+
+export const tagsToProjects = sqliteTable(
+	"tags_to_projects",
+	{
+		tagId: integer("tag_id")
+			.notNull()
+			.references(() => tags.id),
+		projectId: integer("project_id")
+			.notNull()
+			.references(() => projects.id)
+	},
+	(t) => ({
+		pk: primaryKey(t.tagId, t.projectId)
+	})
+)
+
+export const tagsToProjectsRelations = relations(tagsToProjects, ({ one }) => ({
+	project: one(projects, {
+		fields: [tagsToProjects.projectId],
+		references: [projects.id]
+	}),
+	tag: one(tags, {
+		fields: [tagsToProjects.tagId],
+		references: [tags.id]
+	})
+}))

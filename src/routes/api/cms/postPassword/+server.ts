@@ -11,7 +11,5 @@ export async function POST({ request }) {
 		statusCode = 200;
 	}
 
-	console.log(statusCode, process.env.BOLT_PASSWORD);
-
 	return json({ status: statusCode });
 }

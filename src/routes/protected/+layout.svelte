@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { onMount } from "svelte";
 	import "../../app.css";
 	let passInput = "";
 	let imIn = false;
+	let inputEl: HTMLInputElement;
 
 	const submitPassword = async (e: Event) => {
 		e.preventDefault();
@@ -16,10 +18,17 @@
 
 		const res = await response.json();
 
-		console.log(res);
-
-		if (res.status == 200) imIn = true;
+		if (res.status == 200) {
+			imIn = true;
+			console.log(res, "hi me/bolt (same thing)");
+		} else {
+			console.log("who tf are you?");
+		}
 	};
+
+	onMount(() => {
+		inputEl.focus();
+	});
 </script>
 
 <div class="h-screen bg-black">
@@ -28,6 +37,7 @@
 			<div class="flex h-screen w-full items-center justify-center">
 				<form on:submit={submitPassword} autocomplete="off">
 					<input
+						bind:this={inputEl}
 						class="rounded-md p-2"
 						bind:value={passInput}
 						type="password"

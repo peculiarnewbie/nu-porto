@@ -87,7 +87,7 @@ export const projects = sqliteTable("projects", {
 
 export const projectsRelations = relations(projects, ({ many }) => ({
 	tagsToProjects: many(tagsToProjects)
-}))
+}));
 
 export const tagsToProjects = sqliteTable(
 	"tags_to_projects",
@@ -102,7 +102,7 @@ export const tagsToProjects = sqliteTable(
 	(t) => ({
 		pk: primaryKey(t.tagId, t.projectId)
 	})
-)
+);
 
 export const tagsToProjectsRelations = relations(tagsToProjects, ({ one }) => ({
 	project: one(projects, {
@@ -113,4 +113,13 @@ export const tagsToProjectsRelations = relations(tagsToProjects, ({ one }) => ({
 		fields: [tagsToProjects.tagId],
 		references: [tags.id]
 	})
-}))
+}));
+
+export type Tags = typeof tags.$inferSelect;
+export type insertTags = typeof tags.$inferInsert;
+
+export type Blogs = typeof blogs.$inferSelect;
+export type insertBlogs = typeof blogs.$inferInsert;
+
+export type Projects = typeof projects.$inferSelect;
+export type insertProjects = typeof projects.$inferInsert;

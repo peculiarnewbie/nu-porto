@@ -22,7 +22,10 @@
 		</div>
 		<div class="z-20 fixed w-screen h-fit">
 			<div class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-0">
-				<Header/>
+				<div class="lg:flex lg:justify-between lg:gap-4">
+					<Header/>
+					<div class="h-[3000px]"></div>
+				</div>
 			</div>
 		</div>
 	</div>

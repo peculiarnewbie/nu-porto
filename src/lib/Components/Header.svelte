@@ -1,9 +1,16 @@
 <script lang="ts">
 	import { mousePos } from "$lib/stores";
 	import { onDestroy, onMount } from "svelte";
+	import HeaderLinks from "./HeaderLinks.svelte";
 
     let boltOpacity = 0.8;
     let boltText:HTMLElement;
+
+    const links = [{icon: "github.svg", url:"https://github.com/peculiarnewbie", action:"open"},
+                    {icon: "itchio.svg", url: "https://peculiarnewbie.itch.io/", action:"open"},
+                    {icon: "discord.svg", url: "peculiarnewbie", action:"copy"},
+                    {icon: "email.svg", url:"mailto:arif.rahman.bolt@gmail.com", action:"email"}
+                ]
 
     const unsubscribe = mousePos.subscribe((value) => {
         if(typeof window != "undefined"){
@@ -26,13 +33,21 @@
 </script>
 
 <header class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24">
-    <div class="relative w-fit">
-        <h1 class="text-4xl sm:text-5xl font-bold text-slate-200 ">Arif Rahman</h1>
-        <p bind:this={boltText} class="absolute -right-5 sm:-right-10 sm:-top-2 -top-1 text-2xl sm:text-4xl text-[#899beb] font-semibold handWrite rotate-[20deg] transition-opacity duration-500"
-            style={`opacity: ${boltOpacity} ;`}
-        >{"(Bolt)"}</p>
+    <div>
+        <div class="relative w-fit">
+            <h1 class="text-4xl sm:text-5xl font-bold text-slate-200 ">Arif Rahman</h1>
+            <p bind:this={boltText} class="absolute -right-5 sm:-right-10 sm:-top-2 -top-1 text-2xl sm:text-4xl text-[#899beb] font-semibold handWrite rotate-[20deg] transition-opacity duration-500"
+                style={`opacity: ${boltOpacity} ;`}
+            >{"(Bolt)"}</p>
+        </div>
+        <div class="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">
+            Frontend and Game Developer
+        </div>
+        <div class="mt-4 max-w-xs leading-normal text-slate-400">Learning to build useful tools and meaningful experiences</div>
     </div>
-    <div class="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">
-        Frontend and Game Developer
+    <div class="flex gap-7 bottom-0">
+        {#each links as link}
+            <HeaderLinks iconUrl={link.icon} url={link.url} />
+        {/each}
     </div>
 </header>

@@ -6,7 +6,8 @@ export const postType = {
 
 export const tagType = {
 	descriptor: "Descriptor",
-	tech: "Tech"
+	tech: "Tech",
+	role: "Role"
 } as const;
 
 export type postTypeKeys = (typeof postType)[keyof typeof postType];

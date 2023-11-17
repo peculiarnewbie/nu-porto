@@ -20,7 +20,7 @@
 			} else if (boltText) {
 				const rect = boltText.getBoundingClientRect();
 				const dx = value[0] - rect.left;
-				const dy = value[1] - rect.top;
+				const dy = value[1] - rect.top - window.scrollY;
 
 				const distance = (600 - Math.sqrt(dx * dx + dy * dy)) / 400;
 				boltOpacity = distance;

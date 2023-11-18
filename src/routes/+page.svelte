@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import "../app.css";
+	import dayjs from "dayjs";
 
 	import { Canvas } from "@threlte/core";
 	import Scene from "../lib/Components/Scene.svelte";
@@ -9,7 +10,28 @@
 
 	export let data;
 
-	console.log(data);
+	onMount(() => {
+		var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+		let now = dayjs();
+		let month = now.year().toString() + (now.month() + 1).toString();
+
+		console.log(month, timeZone);
+
+		const analytics = { timeZone: timeZone, month: month };
+
+		const sendAnalytics = async () => {
+			const response = await fetch("../api/analytics", {
+				method: "POST",
+				body: JSON.stringify(analytics),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			});
+		};
+
+		sendAnalytics();
+	});
 </script>
 
 <div class="h-screen bg-black">

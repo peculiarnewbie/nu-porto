@@ -115,6 +115,13 @@ export const tagsToProjectsRelations = relations(tagsToProjects, ({ one }) => ({
 	})
 }));
 
+export const analytics = sqliteTable("analytics", {
+	id: text("id").notNull().primaryKey(),
+	location: text("location").notNull(),
+	month: text("month").notNull(),
+	qty: integer("qty")
+});
+
 export type Tags = typeof tags.$inferSelect;
 export type insertTags = typeof tags.$inferInsert;
 
@@ -125,3 +132,5 @@ export type Projects = typeof projects.$inferSelect;
 export type insertProjects = typeof projects.$inferInsert;
 
 export type insertTagsToProjects = typeof tagsToProjects.$inferInsert;
+
+export type insertAnalytics = typeof analytics.$inferInsert;

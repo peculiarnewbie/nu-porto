@@ -13,7 +13,6 @@ export async function POST({ request }) {
 	for (let i = 0; i < data.tags.length; i++) {
 		tagProjectRelations.push({ tagId: data.tags[i], projectId: data.project.id });
 	}
-	console.log(data.project, tagProjectRelations);
 
 	const result = await db.insert(projects).values(data.project).returning().get();
 	const relations = await db

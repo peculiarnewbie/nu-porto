@@ -49,10 +49,10 @@ export const blogsRelations = relations(blogs, ({ many }) => ({
 export const tagsToBlogs = sqliteTable(
 	"tags_to_blogs",
 	{
-		tagId: integer("tag_id")
+		tagId: text("tag_id")
 			.notNull()
 			.references(() => tags.id),
-		blogId: integer("blog_id")
+		blogId: text("blog_id")
 			.notNull()
 			.references(() => blogs.id)
 	},
@@ -92,10 +92,10 @@ export const projectsRelations = relations(projects, ({ many }) => ({
 export const tagsToProjects = sqliteTable(
 	"tags_to_projects",
 	{
-		tagId: integer("tag_id")
+		tagId: text("tag_id")
 			.notNull()
 			.references(() => tags.id),
-		projectId: integer("project_id")
+		projectId: text("project_id")
 			.notNull()
 			.references(() => projects.id)
 	},
@@ -123,3 +123,5 @@ export type insertBlogs = typeof blogs.$inferInsert;
 
 export type Projects = typeof projects.$inferSelect;
 export type insertProjects = typeof projects.$inferInsert;
+
+export type insertTagsToProjects = typeof tagsToProjects.$inferInsert;

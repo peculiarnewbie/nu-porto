@@ -77,10 +77,10 @@
 	onMount(() => {
 		rebuildBG();
 
-		document.body.addEventListener("mousemove", followMouse);
+		document.body.addEventListener("pointermove", followMouse);
 
 		return () => {
-			document.body.removeEventListener("mousemove", followMouse);
+			document.body.removeEventListener("pointermove", followMouse);
 		};
 	});
 </script>

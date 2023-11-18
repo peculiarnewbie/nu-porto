@@ -8,6 +8,8 @@
 	import MainContent from "$lib/Components/MainContent.svelte";
 
 	export let data;
+
+	console.log(data);
 </script>
 
 <div class="h-screen bg-black">
@@ -25,7 +27,7 @@
 			>
 				<div class="lg:flex lg:justify-between lg:gap-4">
 					<Header />
-					<MainContent />
+					<MainContent projects={data.projects} />
 				</div>
 			</div>
 		</div>

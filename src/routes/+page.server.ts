@@ -1,6 +1,27 @@
 import { db } from "$lib/dbClient";
-import { blogs } from "../../drizzle/schema";
-import { eq, sql } from "drizzle-orm";
+import { QueryBuilder } from "drizzle-orm/mysql-core";
+import { blogs, projects } from "../../drizzle/schema";
+import { desc, eq, sql } from "drizzle-orm";
+
+const homeProjectsQuery = db.query.projects.findMany({
+	columns: {
+		createdAt: false,
+		updatedAt: false,
+		content: false
+	},
+	orderBy: [desc(projects.priority), projects.title],
+	limit: 5,
+	with: {
+		tagsToProjects: {
+			columns: {},
+			with: {
+				tag: true
+			}
+		}
+	}
+});
+
+export type homeProjectsType = Awaited<typeof homeProjectsQuery>[0];
 
 export async function load() {
 	// const paginatedBlogs = db.select().from(blogs).orderBy(blogs.createdAt).limit(10);
@@ -9,4 +30,10 @@ export async function load() {
 	// 	paginatedBlogs: paginatedBlogs,
 	// 	blogsCount: blogsCount
 	// };
+
+	const homeProjects = await homeProjectsQuery;
+
+	return {
+		projects: homeProjects
+	};
 }

@@ -8,6 +8,7 @@
 	} from "$lib/Components/CMS/types";
 	import type { Tags, insertTags, insertProjects } from "../../../../drizzle/schema";
 	import { v4 as uuidv4 } from "uuid";
+	import { onMount } from "svelte";
 
 	export let data;
 
@@ -18,6 +19,23 @@
 
 	let tagTypes = Object.values(tagType);
 	let selectedTagType = 0;
+	let pulledTags: Tags[];
+	let selectedTags: boolean[];
+
+	const getTag = async () => {
+		pulledTags = [];
+		selectedTags = [];
+
+		const response = await fetch("../api/cms/tag", {
+			method: "GET"
+		});
+		const res = (await response.json()).result;
+		pulledTags = res;
+		res.forEach((tag: any) => {
+			selectedTags.push(false);
+		});
+		console.log(res);
+	};
 
 	const postTag = async (e: SubmitEvent) => {
 		e.preventDefault();
@@ -33,7 +51,7 @@
 
 		console.log(data);
 
-		const response = await fetch("../api/cms/postTag", {
+		const response = await fetch("../api/cms/tag", {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers: {
@@ -58,9 +76,52 @@
 
 	const postProject = async (e: SubmitEvent) => {
 		e.preventDefault();
+		//@ts-ignore
+		const formData = new FormData(e.target);
+		let data: { project: insertProjects; tags: string[] } = {
+			project: {} as insertProjects,
+			tags: []
+		};
+		for (let field of formData) {
+			const [key, value] = field;
+			//@ts-ignore
+			data.project[key] = value;
+		}
+		data.project.id = uuidv4();
+
+		for (let i = 0; i < selectedTags.length; i++) {
+			if (selectedTags[i]) {
+				data.tags.push(pulledTags[i].id);
+			}
+		}
+
+		console.log(data);
+
+		const response = await fetch("../api/cms/project", {
+			method: "POST",
+			body: JSON.stringify(data),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+		const res = (await response.json()).result;
+		let i = 0;
+		postedData = [];
+		for (let key in res) {
+			postedData[i] = { key: key, value: res[key] };
+			i++;
+		}
+		console.log(postedData);
 	};
 
-	console.log(data.tags);
+	const switchProjectTag = (e: Event, index: number) => {
+		e.preventDefault();
+		selectedTags[index] = !selectedTags[index];
+	};
+
+	onMount(() => {
+		getTag();
+	});
 </script>
 
 <div class="text-slate-200">you're in</div>
@@ -85,10 +146,10 @@
 	<div class="flex flex-col gap-6 rounded-md bg-neutral-900 p-2">
 		<!--========== Tag Form ==========-->
 		{#if currentPostType == postType.tag}
-			<form class="flex w-full flex-col gap-4 p-2" on:submit={postTag}>
+			<form id="tagForm" class="flex w-full flex-col gap-4 p-2" on:submit={postTag}>
 				<div class="flex flex-col gap-1">
 					<p class="text-slate-200">Title</p>
-					<input class="rounded-md p-2" type="text" name="title" />
+					<input class="rounded-md p-2" type="text" name="name" />
 				</div>
 				<div class="flex flex-col gap-1">
 					<p class="text-slate-200">Type</p>
@@ -121,18 +182,18 @@
 			</form>
 			<!--========== Project Form ==========-->
 		{:else if currentPostType == postType.project}
-			<form class="flex w-full flex-col gap-4 p-2">
+			<form id="projectForm" class="flex w-full flex-col gap-4 p-2" on:submit={postProject}>
 				<div class="flex flex-col gap-1">
 					<p class="text-slate-200">Name</p>
-					<input class="rounded-md p-2" type="text" name="name" />
+					<input class="rounded-md p-2" type="text" name="title" />
 				</div>
 				<div class="flex flex-col gap-1">
 					<p class="text-slate-200">Repo URL</p>
-					<input class="rounded-md p-2" type="text" name="repoURL" />
+					<input class="rounded-md p-2" type="text" name="repoUrl" />
 				</div>
 				<div class="flex flex-col gap-1">
 					<p class="text-slate-200">Preview URL</p>
-					<input class="rounded-md p-2" type="text" name="previewURL" />
+					<input class="rounded-md p-2" type="text" name="previewUrl" />
 				</div>
 				<div class="flex flex-col gap-1">
 					<p class="text-slate-200">Priority</p>
@@ -152,32 +213,22 @@
 				</div>
 				<div class="flex flex-col gap-1">
 					<p class="text-slate-200">Type</p>
-					{#if selectedTagType == -1}
-						<div class="flex gap-2 text-slate-200">
-							{#each data.tags as tag, index}
-								<button
-									on:click={(e) => switchTagType(index)}
-									class="rounded-md bg-slate-800 p-2 hover:bg-slate-600"
-								>
-									<p>{tag.name}</p>
-								</button>
-							{/each}
-						</div>
-					{:else}
-						<button
-							on:click={(e) => switchTagType(-1)}
-							class="flex w-32 justify-center rounded-md bg-slate-800 p-2 text-slate-200 hover:bg-slate-600"
-						>
-							<input
-								class="pointer-events-none w-full bg-transparent text-center"
-								type="text"
-								name="type"
-								value={tagTypes[selectedTagType]}
-							/>
-						</button>
-					{/if}
+					<div class="flex flex-wrap gap-2 text-slate-200">
+						{#each pulledTags as tag, index}
+							<button
+								on:click={(e) => switchProjectTag(e, index)}
+								class={`rounded-md border-2 p-2 hover:bg-slate-600 ${
+									selectedTags[index]
+										? "border-white bg-slate-700"
+										: "border-transparent bg-slate-800"
+								}`}
+							>
+								<p>{tag.name}</p>
+							</button>
+						{/each}
+					</div>
 				</div>
-				<button class="rounded-md bg-slate-200 p-2"> Post Project </button>
+				<button class="rounded-md bg-slate-200 p-2" type="submit"> Post Project </button>
 			</form>
 		{/if}
 		{#if postedData}

@@ -62,7 +62,7 @@
 	</div>
 	<div class="bottom-0 mt-8 flex gap-7">
 		{#each links as link}
-			<HeaderLinks iconUrl={link.icon} url={link.url} />
+			<HeaderLinks iconUrl={link.icon} url={link.url} action={link.action} />
 		{/each}
 	</div>
 </header>

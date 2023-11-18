@@ -51,6 +51,14 @@
 		<div class="mt-4 max-w-xs leading-normal text-slate-400">
 			Learning to build useful tools and meaningful experiences
 		</div>
+		<div
+			class=" mt-12 hidden gap-6 text-xs font-bold tracking-widest text-slate-200 sm:flex sm:flex-col"
+		>
+			<a href="/">PROJECTS</a>
+			<a href="/Resume">RESUME</a>
+			<p class="text-slate-600">BLOG <span class=" font-normal">{"(Soon)"}</span></p>
+			<p class="text-slate-600">TMI <span class="font-normal">{"(Soon)"}</span></p>
+		</div>
 	</div>
 	<div class="bottom-0 mt-8 flex gap-7">
 		{#each links as link}

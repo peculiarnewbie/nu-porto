@@ -61,8 +61,8 @@
 				}
 			}
 		}
-		console.log(positions.length, window.innerWidth);
-		console.log(count);
+		// console.log(positions.length, window.innerWidth);
+		// console.log(count);
 	};
 
 	let resizeTimeout: NodeJS.Timeout;

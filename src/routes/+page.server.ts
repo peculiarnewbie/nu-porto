@@ -33,6 +33,7 @@ export async function load() {
 	// 	blogsCount: blogsCount
 	// };
 
+	// const homeProjects = {} as homeProjectsType;
 	const homeProjects = await homeProjectsQuery;
 
 	return {

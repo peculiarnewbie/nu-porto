@@ -28,7 +28,10 @@ export async function POST({ request, cookies }) {
 		});
 	} else {
 		if (result[0].qty) {
-			const res = await db.update(analytics).set({ qty: result[0].qty + 1 });
+			const res = await db
+				.update(analytics)
+				.set({ qty: result[0].qty + 1 })
+				.where(eq(analytics.id, data.id));
 			console.log(res);
 		}
 	}

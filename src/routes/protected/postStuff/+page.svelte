@@ -9,10 +9,8 @@
 	import type { Tags, insertTags, insertProjects } from "../../../../drizzle/schema";
 	import { v4 as uuidv4 } from "uuid";
 	import { onMount } from "svelte";
-
-	export let data;
-
 	let postedData: { key: any; value: any }[];
+
 	let currentPostType: postTypeKeys = postType.tag;
 
 	// ============= Tag Stuff ==============

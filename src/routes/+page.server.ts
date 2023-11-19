@@ -3,6 +3,8 @@ import { QueryBuilder } from "drizzle-orm/mysql-core";
 import { blogs, projects } from "../../drizzle/schema";
 import { desc, eq, sql } from "drizzle-orm";
 
+export const prerender = true;
+
 const homeProjectsQuery = db.query.projects.findMany({
 	columns: {
 		createdAt: false,

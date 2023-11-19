@@ -1,11 +1,11 @@
-import "dotenv/config";
 import { db } from "$lib/dbClient";
 import { eq } from "drizzle-orm";
 import { analytics, type insertAnalytics } from "../../../../drizzle/schema.js";
 import { json } from "@sveltejs/kit";
+import { env } from "$env/dynamic/private";
 
 export async function POST({ request, cookies }) {
-	if (process.env.DEV) return;
+	if (env.DEV) return;
 
 	const toPush = await request.json();
 

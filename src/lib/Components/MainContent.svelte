@@ -15,7 +15,7 @@
 	</p>
 	<div class="pt-16 lg:pt-12" />
 	<p class="pb-8 font-bold tracking-widest text-slate-200">MY PROJECTS</p>
-	<div class="flex flex-col gap-12">
+	<div class="flex flex-col gap-12 lg:gap-8">
 		{#each projects as project, index}
 			<ProjectItem {project} />
 		{/each}

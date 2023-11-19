@@ -55,7 +55,7 @@
 			class=" mt-12 hidden gap-6 text-xs font-bold tracking-widest text-slate-200 sm:flex sm:flex-col"
 		>
 			<a href="/">PROJECTS</a>
-			<a href="/Resume">RESUME</a>
+			<a href="/resume">RESUME</a>
 			<p class="text-slate-600">BLOG <span class=" font-normal">{"(Soon)"}</span></p>
 			<p class="text-slate-600">TMI <span class="font-normal">{"(Soon)"}</span></p>
 		</div>

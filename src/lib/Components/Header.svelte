@@ -52,9 +52,7 @@
 		<div class="mt-4 max-w-xs leading-normal text-slate-400">
 			Learning to build useful tools and meaningful experiences
 		</div>
-		<div
-			class=" mt-12 hidden gap-6 text-xs font-bold tracking-widest text-slate-200 sm:flex sm:flex-col"
-		>
+		<div class=" mt-12 flex gap-6 text-xs font-bold tracking-widest text-slate-200 sm:flex-col">
 			<a href="/">PROJECTS</a>
 			<a href="/CV-Arif-Rahman.pdf">RESUME</a>
 			<p class="text-slate-600">BLOG <span class=" font-normal">{"(Soon)"}</span></p>

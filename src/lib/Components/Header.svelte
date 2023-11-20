@@ -9,6 +9,7 @@
 	const links = [
 		{ icon: "github.svg", url: "https://github.com/peculiarnewbie", action: "open" },
 		{ icon: "itchio.svg", url: "https://peculiarnewbie.itch.io/", action: "open" },
+		{ icon: "twitter.svg", url: "https://twitter.com/peculiarnewbie", action: "open" },
 		{ icon: "discord.svg", url: "peculiarnewbie", action: "copy" },
 		{ icon: "email.svg", url: "mailto:arif.rahman.bolt@gmail.com", action: "email" }
 	];
@@ -55,7 +56,7 @@
 			class=" mt-12 hidden gap-6 text-xs font-bold tracking-widest text-slate-200 sm:flex sm:flex-col"
 		>
 			<a href="/">PROJECTS</a>
-			<a href="/resume">RESUME</a>
+			<a href="/CV-Arif-Rahman.pdf">RESUME</a>
 			<p class="text-slate-600">BLOG <span class=" font-normal">{"(Soon)"}</span></p>
 			<p class="text-slate-600">TMI <span class="font-normal">{"(Soon)"}</span></p>
 		</div>

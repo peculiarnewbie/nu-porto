@@ -31,8 +31,9 @@
 		<span class="Lib"><a href="https://turso.tech/" target="_blank">Turso</a></span>
 		{"and "}
 		<span class="Lib"><a href="https://orm.drizzle.team/" target="_blank">Drizzle ORM</a></span
-		>{", and hosted on "}
-		<span class="Lib"><a href="https://vercel.com/" target="_blank">Vercel</a></span
+		>{", and deployed with "}
+		<span class="Lib"
+			><a href="https://pages.cloudflare.com/" target="_blank">Cloudflare Pages</a></span
 		>{". Design is heavily inspired by "}
 		<span class="Lib"
 			><a href="https://brittanychiang.com/" target="_blank">{"Brittany Chiang"}</a></span

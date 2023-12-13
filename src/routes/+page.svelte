@@ -9,13 +9,15 @@
 	import MainContent from "$lib/Components/MainContent.svelte";
 	import posthog from "posthog-js";
 
-	posthog.init("phc_lABRTYgkqxfHB1aFl4pfTpxXpzpmIUE3GNOl0V5IlMf", {
-		api_host: "https://app.posthog.com"
-	});
-
 	export let data;
 
 	onMount(() => {
+		posthog.init("phc_lABRTYgkqxfHB1aFl4pfTpxXpzpmIUE3GNOl0V5IlMf", {
+			api_host: "https://app.posthog.com"
+		});
+
+		posthog.capture("visit", { property: "value" });
+
 		const sendAnalytics = async () => {
 			const response = await fetch("../api/analytics", {
 				method: "POST",

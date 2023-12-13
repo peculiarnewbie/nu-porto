@@ -7,6 +7,11 @@
 	import Scene from "../lib/Components/Scene.svelte";
 	import Header from "$lib/Components/Header.svelte";
 	import MainContent from "$lib/Components/MainContent.svelte";
+	import posthog from "posthog-js";
+
+	posthog.init("phc_lABRTYgkqxfHB1aFl4pfTpxXpzpmIUE3GNOl0V5IlMf", {
+		api_host: "https://app.posthog.com"
+	});
 
 	export let data;
 

@@ -8,10 +8,15 @@
 	import Header from "$lib/Components/Header.svelte";
 	import MainContent from "$lib/Components/MainContent.svelte";
 	import posthog from "posthog-js";
+	import { PUBLIC_DEV } from "$env/static/public";
 
 	export let data;
 
 	onMount(() => {
+		if (PUBLIC_DEV) {
+			console.log("in dev");
+			return;
+		}
 		posthog.init("phc_lABRTYgkqxfHB1aFl4pfTpxXpzpmIUE3GNOl0V5IlMf", {
 			api_host: "https://app.posthog.com"
 		});

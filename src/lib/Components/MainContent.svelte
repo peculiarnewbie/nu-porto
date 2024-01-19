@@ -21,20 +21,22 @@
 		{/each}
 	</div>
 	<div class="pt-16 text-sm text-slate-400 sm:pb-0">
-		{"This website was built using the"}
+		{"This website was built using"}
 		<span class="Lib"><a href="https://kit.svelte.dev/" target="_blank">Sveltekit</a></span>
-		{"fullstack framework, "}
+		{", "}
 		<span class="Lib"><a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a></span>
-		{"for styling, 3D background created using"}
-		<span class="Lib"><a href="https://threlte.xyz/" target="_blank">Threlte</a></span
-		>{", Database managed using "}
+		{", "}
+		<span class="Lib"><a href="https://threlte.xyz/" target="_blank">Threlte</a></span>{", "}
 		<span class="Lib"><a href="https://turso.tech/" target="_blank">Turso</a></span>
-		{"and "}
+		{", "}
 		<span class="Lib"><a href="https://orm.drizzle.team/" target="_blank">Drizzle ORM</a></span
-		>{", and deployed with "}
+		>{", and deployed on "}
 		<span class="Lib"
 			><a href="https://pages.cloudflare.com/" target="_blank">Cloudflare Pages</a></span
-		>{". Design is heavily inspired by "}
+		>
+	</div>
+	<div class="pt-4 text-sm text-slate-400 sm:pb-0">
+		{"Design is heavily inspired by "}
 		<span class="Lib"
 			><a href="https://brittanychiang.com/" target="_blank">{"Brittany Chiang"}</a></span
 		>{"'s portofolio"}

@@ -13,7 +13,7 @@
 	export let data;
 
 	onMount(() => {
-		if (PUBLIC_DEV) {
+		if (PUBLIC_DEV === "true") {
 			console.log("in dev");
 			return;
 		}

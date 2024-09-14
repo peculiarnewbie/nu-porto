@@ -3,6 +3,8 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { Projects } from "../content/projects";
+import ProjectItem from "../components/ProjectItem.astro";
 ---
 
 <!doctype html>
@@ -11,7 +13,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<div class="absolute z-20 w-full bg-black">
+		<div class="absolute z-20 w-full bg-[#100D08]">
 			<div
 				class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-0"
 			>
@@ -29,35 +31,23 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 							}
 						</p>
 						<div class="pt-16 lg:pt-12"></div>
-						<p class="pb-8 font-bold tracking-widest text-slate-200">MY PROJECTS</p>
+						<p class="pb-8 font-bold tracking-widest text-slate-200">WORK</p>
+						<div class="pt-16 lg:pt-12"></div>
+						<p class="pb-8 font-bold tracking-widest text-slate-200">PROJECTS</p>
 						<div class="flex flex-col gap-12">
-							<!-- {#each projects as project, index}
-			<ProjectItem {project} />
-		{/each} -->
+							{Projects.map((project) => <ProjectItem {project} />)}
 						</div>
 						<div class="pt-16 text-sm text-slate-400 sm:pb-0">
 							{"This website was built using"}
 							<span class="Lib"
-								><a href="https://kit.svelte.dev/" target="_blank">Sveltekit</a
-								></span
+								><a href="https://kit.svelte.dev/" target="_blank">Astro</a></span
 							>
-							{", "}
+							{" and "}
 							<span class="Lib"
 								><a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a
 								></span
 							>
-							{", "}
-							<span class="Lib"
-								><a href="https://threlte.xyz/" target="_blank">Threlte</a></span
-							>{", "}
-							<span class="Lib"
-								><a href="https://turso.tech/" target="_blank">Turso</a></span
-							>
-							{", "}
-							<span class="Lib"
-								><a href="https://orm.drizzle.team/" target="_blank">Drizzle ORM</a
-								></span
-							>{", and deployed on "}
+							{", deployed on "}
 							<span class="Lib"
 								><a href="https://pages.cloudflare.com/" target="_blank"
 									>Cloudflare Pages</a
@@ -83,7 +73,19 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 					</main>
 				</div>
 			</div>
+
+			<!-- <Footer /> -->
 		</div>
-		<!-- <Footer /> -->
 	</body>
 </html>
+
+<style>
+	.Lib {
+		color: rgb(226 232 240 / var(--tw-text-opacity));
+		font-weight: 500;
+	}
+
+	.Lib:hover {
+		color: rgb(34 211 238 / var(--tw-text-opacity));
+	}
+</style>
